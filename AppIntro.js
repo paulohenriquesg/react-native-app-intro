@@ -132,7 +132,7 @@ export default class AppIntro extends Component {
         },
       });
     }
-    this.props.onNextBtnClick();
+    this.props.onNextBtnClick(context.state.index);
   }
 
   setDoneBtnOpacity = (value) => {
@@ -186,7 +186,6 @@ export default class AppIntro extends Component {
 
   renderPagination = (index, total, context) => {
     const { activeDotColor, dotColor, rightTextColor } = this.props;
-    this.props.onSlideChange(index, total);
     const ActiveDot = (
       <View
         style={[styles.activeDotStyle, { backgroundColor: activeDotColor }]}
@@ -232,7 +231,7 @@ export default class AppIntro extends Component {
           >
             <TouchableOpacity
               style={styles.full}
-              onPress={isSkipBtnShow ? this.props.onSkipBtnClick : null}
+              onPress={isSkipBtnShow ? () => this.props.onSkipBtnClick(index) : null}
             >
               <Text style={[styles.controllText, { color: rightTextColor }]}>{this.props.skipBtnLabel}</Text>
             </TouchableOpacity>
@@ -279,7 +278,7 @@ export default class AppIntro extends Component {
           >
             <TouchableOpacity
               style={styles.full}
-              onPress={isSkipBtnShow ? this.props.onSkipBtnClick : null}
+              onPress={isSkipBtnShow ? () => this.props.onSkipBtnClick(index) : null}
             >
               <Text style={[styles.controllText, { color: rightTextColor }]}>{this.props.skipBtnLabel}</Text>
             </TouchableOpacity>
@@ -400,6 +399,9 @@ export default class AppIntro extends Component {
         <Swiper
           loop={false}
           renderPagination={this.renderPagination}
+          onMomentumScrollEnd={(e, state) => {
+            this.props.onSlideChange(state.index, state.total);
+          }}
           onScroll={Animated.event(
             [{ x: this.state.parallax }]
           )}

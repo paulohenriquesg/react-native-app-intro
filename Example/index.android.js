@@ -14,9 +14,10 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import AppIntro from 'react-native-app-intro';
 const windowsWidth = Dimensions.get('window').width;
 const windowsHeight = Dimensions.get('window').height;
+import AppIntro from 'react-native-app-intro';
+// import AppIntro from './AppIntro';
 
 const styles = StyleSheet.create({
   slide: {
@@ -58,18 +59,19 @@ const styles = StyleSheet.create({
 
 class Example extends Component {
 
-
-  onSkipBtnHandle = () => {
+  onSkipBtnHandle = (index) => {
     Alert.alert('Skip');
+    console.log(index);
   }
   doneBtnHandle = () => {
     Alert.alert('Done');
   }
-  nextBtnHendle = () => {
-    // Alert.alert('Next');
+  nextBtnHendle = (index) => {
+    Alert.alert('Next');
+    console.log(index);
   }
   onSlideChangeHandle = (index, total) => {
-
+    console.log(index, total);
   }
 
   render() {
